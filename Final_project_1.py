@@ -9,6 +9,12 @@ class People:
         self.number = number
         self.address = address
 
+class ContactWindow:
+    def __init__(self, name, number, address):
+        self.name = name
+        print(self.name)
+        
+        
 
 def save_contact(person):
     """this function stores a new contact person in a database
@@ -23,6 +29,7 @@ def get_contacts():
     """this function retrieves the contacts from the database 
     and returns them as a list of tuples"""
     test_return = [("bob", "123", "Cherry lane"), ("alice", "456","pond road")]
+    print(test_return)
     return test_return
 
 def main():
@@ -43,10 +50,23 @@ def main():
         
     def display_contacts():
         contacts = get_contacts()
+        contact_display_string = ""
         for i in range(len(contacts)):
-            name = contacts[i][1]
-            number = contacts[i][2]
-            address = contacts[i][3]
+            name = contacts[i][0]
+            number = contacts[i][1]
+            address = contacts[i][2]
+            intermediate_display_string = "Name: " + str(name) + "\nNumber: " + str(number) + "\nAddress: " + str(address) + "\n\n"
+            contact_display_string = contact_display_string + intermediate_display_string
+            b=[0 for x in range(len(contacts))]
+            b[i] = tk.Button(root, text = name, command=lambda : get_contacts())
+            b[i].pack()
+        label6["text"] = contact_display_string
+        
+        """b = [0 for x in range(5)]
+        for i in range(5):
+            b[i] = tk.Button(root, command=lambda : get_contacts())
+            b[i].pack()"""
+        
             
 
         #should iterate through contacts and make a button for each name
@@ -84,14 +104,21 @@ def main():
     entry3 = tk.Entry (root) 
     canvas1.create_window(200, 140, window=entry3)
     entry3.pack()
-
+    
+    label6 = tk.Label(root, text="")
+    label6.config(font=('helvetica', 10))
+    canvas1.create_window(200, 100, window=label6)
+    label6.pack()
+    
     button1 = tk.Button(text='save contact', command=save_response(entry1.get(), entry2.get(), entry3.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
     canvas1.create_window(200, 180, window=button1)
     button1.pack()
 
-    button2 = tk.Button(text='display contacts', command=display_contacts(), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
+    button2 = tk.Button(text='display contacts', command=display_contacts, bg='brown', fg='white', font=('helvetica', 9, 'bold'))
     canvas1.create_window(200, 180, window=button2)
     button2.pack()
+
+    
 
     root.mainloop()
     
