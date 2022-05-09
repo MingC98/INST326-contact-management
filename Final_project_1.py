@@ -1,14 +1,32 @@
 """Overall function docstring"""
 import tkinter as tk
+import sqlite3
+"""
+Create and connect to the sql database
+"""
+conn = sqlite3.connect(':memory:')
+cursor = conn.cursor()
+cq = '''CREATE TABLE contacts(
+        name TEXT, number TEXT, address TEXT
+        )'''
+cursor.execute(cq)
 
-
+'''
 class People:
     """This class stores the information of each individual person"""
     def __init__(self, name, number, address):
         self.name = name
         self.number = number
         self.address = address
-
+        
+class Contact:
+    """Contains the contact which is a list of People"""
+    def __init__(self):
+        self.contacts = []
+    def add_contact(self,person):
+        self.contacts.append(person)
+'''
+        
 class ContactWindow:
     def __init__(self, name, number, address):
         self.name = name
@@ -18,19 +36,23 @@ class ContactWindow:
 
 def save_contact(person):
     """this function stores a new contact person in a database
-    
-    Minghan do your thing here
-
-
+    Parameter: person: a tuple contains name,number,address
     """
+    imq = '''INSERT INTO contacts VALUES(?,?,?)'''
+    cursor.execute(imq,person)
+    print('saved')
     pass
 
 def get_contacts():
     """this function retrieves the contacts from the database 
     and returns them as a list of tuples"""
-    test_return = [("bob", "123", "Cherry lane"), ("alice", "456","pond road")]
-    print(test_return)
-    return test_return
+    #test_return = [("bob", "123", "Cherry lane"), ("alice", "456","pond road")]
+    #print(test_return)
+    #return test_return
+    sq = '''SELECT * FROM contacts'''
+    m_contacts = cursor.execute(sq).fetchall()
+    print(m_contacts)
+    return m_contacts
 
 def main():
     root= tk.Tk()
@@ -41,7 +63,8 @@ def main():
         """this function takes the entered name, number, and address,
         stores it in a person class, informs the user that it has been saved,
         and passes it off to the save_contact function"""
-        newPerson = People(name, number, address)
+        #newPerson = People(name, number, address)
+        newPerson = (name,number,address)
         label5 = tk.Label(root, text='Contact has been saved')
         label5.config(font=('helvetica', 10))
         canvas1.create_window(200, 100, window=label5)
