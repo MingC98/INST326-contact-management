@@ -50,7 +50,7 @@ def get_contacts():
     print(m_contacts)
     return m_contacts
 
-def delete_contact(name,contact):
+def delete_contact(name,number):
     """Delete contact with same name and number"""
     dq='''DELETE
             FROM contacts
