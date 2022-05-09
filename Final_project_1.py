@@ -133,7 +133,7 @@ def main():
     canvas1.create_window(200, 100, window=label6)
     label6.pack()
     
-    button1 = tk.Button(text='save contact', command=save_response(entry1.get(), entry2.get(), entry3.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
+    button1 = tk.Button(text='save contact', command=lambda:save_response(entry1.get(), entry2.get(), entry3.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
     canvas1.create_window(200, 180, window=button1)
     button1.pack()
 
