@@ -14,10 +14,20 @@ cursor.execute(cq)
 
         
 class ContactWindow:
+    
     def __init__(self, name, number, address):
+        self.branch2= tk.Tk()
+        self.canvas2 = tk.Canvas(self.branch2, width = 400, height = 100,  relief = 'raised')
+        self.canvas2.pack()
         self.name = name
-        print(self.name)
-        
+        self.number = number
+        self.address = address
+        display_string = "Name: " + str(self.name) + "\nNumber: " + str(self.number) + "\nAddress: " + str(self.address) + "\n\n"
+        labelz = tk.Label(self.branch2, text=display_string)
+        labelz.config(font=('helvetica', 14))
+        self.canvas2.create_window(200, 25, window=labelz)
+        labelz.pack()
+
         
 
 def save_contact(person):
@@ -74,7 +84,7 @@ def main():
             intermediate_display_string = "Name: " + str(name) + "\nNumber: " + str(number) + "\nAddress: " + str(address) + "\n\n"
             contact_display_string = contact_display_string + intermediate_display_string
             b=[0 for x in range(len(contacts))]
-            b[i] = tk.Button(root, text = name, command=lambda : get_contacts())
+            b[i] = tk.Button(root, text = name, command=lambda : new_window(name, number, address))
             b[i].pack()
         label6["text"] = contact_display_string
         
@@ -82,7 +92,8 @@ def main():
         for i in range(5):
             b[i] = tk.Button(root, command=lambda : get_contacts())
             b[i].pack()"""
-        
+    def new_window(name, number, address):
+        wind = ContactWindow(name, number, address)
             
 
         #should iterate through contacts and make a button for each name
