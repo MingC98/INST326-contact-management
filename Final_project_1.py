@@ -11,21 +11,7 @@ cq = '''CREATE TABLE contacts(
         )'''
 cursor.execute(cq)
 
-'''
-class People:
-    """This class stores the information of each individual person"""
-    def __init__(self, name, number, address):
-        self.name = name
-        self.number = number
-        self.address = address
-        
-class Contact:
-    """Contains the contact which is a list of People"""
-    def __init__(self):
-        self.contacts = []
-    def add_contact(self,person):
-        self.contacts.append(person)
-'''
+
         
 class ContactWindow:
     def __init__(self, name, number, address):
@@ -54,6 +40,13 @@ def get_contacts():
     print(m_contacts)
     return m_contacts
 
+def delete_contact(name,contact):
+    """Delete contact with same name and number"""
+    dq='''DELETE
+            FROM contacts
+            WHERE name=name AND number=number'''
+    cursor.execute(dq)
+    
 def main():
     root= tk.Tk()
     canvas1 = tk.Canvas(root, width = 400, height = 100,  relief = 'raised')
