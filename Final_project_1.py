@@ -73,6 +73,7 @@ def main():
         canvas1.create_window(200, 100, window=label5)
         label5.pack()
         save_contact(newPerson)
+        display_contacts()
         
     def display_contacts():
         contacts = get_contacts()
