@@ -145,7 +145,9 @@ def main():
     canvas1.create_window(200, 180, window=button2)
     button2.pack()
 
-    
+    button3 = tk.Button(text='save contact', command=lambda:delete_contact(entry1.get(), entry2.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
+    canvas1.create_window(200, 180, window=button3)
+    button3.pack()
 
     root.mainloop()
     
