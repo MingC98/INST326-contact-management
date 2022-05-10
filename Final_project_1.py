@@ -155,14 +155,9 @@ class MainWindow:
         #should iterate through contacts and make a button for each name
         #still working on that
 
-<<<<<<< Updated upstream
 def main():
     MainWindow()
-=======
-    button3 = tk.Button(text='delete contact', command=lambda:delete_contact(entry1.get(), entry2.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
-    canvas1.create_window(200, 180, window=button3)
-    button3.pack()
->>>>>>> Stashed changes
+
 
 if __name__ == "__main__":
     main()
