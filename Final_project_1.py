@@ -49,12 +49,15 @@ def get_contacts():
     m_contacts = cursor.execute(sq).fetchall()
     print(m_contacts)
     return m_contacts
+<<<<<<< HEAD
 
 def delete_contact(m_name,m_number):
     """Delete contact with same name and number"""
     dq=f'''DELETE FROM contacts
             WHERE name = '{m_name}' AND number = '{m_number}' '''
     cursor.execute(dq)
+=======
+>>>>>>> 0267d5bd1ed1f975f2ee455743f4622f82b3a41f
     
 class MainWindow:
     def __init__(self):
@@ -63,6 +66,7 @@ class MainWindow:
         self.canvas1 = tk.Canvas(self.root, width = 400, height = 100,  relief = 'raised')
         self.canvas1.pack()
         self.contact_button_list = []
+        self.contact_window_button_list = []
 
         label1 = tk.Label(self.root, text='Contacts')
         label1.config(font=('helvetica', 14))
@@ -105,7 +109,7 @@ class MainWindow:
         self.canvas1.create_window(200, 180, window=button1)
         button1.pack()
 
-        button3 = tk.Button(text='delete contact', command=lambda:delete_contact(entry1.get(), entry2.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
+        button3 = tk.Button(text='delete contact', command=lambda:self.delete_contact(entry1.get(), entry2.get()), bg='brown', fg='white', font=('helvetica', 9, 'bold'))
         self.canvas1.create_window(200, 180, window=button3)
         button3.pack()
 
@@ -126,37 +130,30 @@ class MainWindow:
         
     def display_contacts(self):
         contacts = get_contacts()
-        contact_display_string = ""
         for j in self.contact_button_list:
             j.destroy()
         for i in range(len(contacts)):
             name = contacts[i][0]
-            number = contacts[i][1]
-            address = contacts[i][2]
-            intermediate_display_string = "Name: " + str(name) + "\nNumber: " + str(number) + "\nAddress: " + str(address) + "\n\n"
-            contact_display_string = contact_display_string + intermediate_display_string
             b=[0 for x in range(len(contacts))]
-            button_test = tk.Button(self.root, text = name, command=lambda : self.new_window(name, number, address))
+            button_test = tk.Button(self.root, text = name, command=lambda i=i: self.new_window(contacts[i][0], contacts[i][1], contacts[i][2]))
             self.contact_button_list.append(button_test)
             b[i] = button_test
             b[i].pack()
             
-        
-        
-        """b = [0 for x in range(5)]
-        for i in range(5):
-            b[i] = tk.Button(root, command=lambda : get_contacts())
-            b[i].pack()"""
     def new_window(self, name, number, address):
         wind = ContactWindow(name, number, address)
             
 
-        #should iterate through contacts and make a button for each name
-        #still working on that
+    def delete_contact(self, name,number):
+        """Delete contact with same name and number"""
+        dq='''DELETE
+            FROM contacts
+            WHERE name=name AND number=number'''
+        cursor.execute(dq)
+        self.display_contacts()
 
 def main():
     MainWindow()
-
 
 if __name__ == "__main__":
     main()
