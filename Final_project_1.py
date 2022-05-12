@@ -50,11 +50,10 @@ def get_contacts():
     print(m_contacts)
     return m_contacts
 
-def delete_contact(name,number):
+def delete_contact(m_name,m_number):
     """Delete contact with same name and number"""
-    dq='''DELETE
-            FROM contacts
-            WHERE name=name AND number=number'''
+    dq=f'''DELETE FROM contacts
+            WHERE name = '{m_name}' AND number = '{m_number}' '''
     cursor.execute(dq)
     
 class MainWindow:
