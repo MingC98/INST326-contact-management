@@ -1,17 +1,9 @@
 """Overall function docstring"""
 import tkinter as tk
 import sqlite3
-"""
-Create and connect to the sql database, must be global
-"""
-conn = sqlite3.connect(':memory:')
-cursor = conn.cursor()
-cq = '''CREATE TABLE contacts(
-        name TEXT, number TEXT, address TEXT
-        )'''
-cursor.execute(cq)
 
 
+    
         
 class ContactWindow:
     
@@ -29,30 +21,18 @@ class ContactWindow:
         labelz.pack()
 
         
-
-def save_contact(person):
-    """this function stores a new contact person in a database
-    Parameter: person: a tuple contains name,number,address
-    """
-    imq = '''INSERT INTO contacts VALUES(?,?,?)'''
-    cursor.execute(imq,person)
-    print('saved')
-    pass
-
-def get_contacts():
-    """this function retrieves the contacts from the database 
-    and returns them as a list of tuples"""
-    #test_return = [("bob", "123", "Cherry lane"), ("alice", "456","pond road")]
-    #print(test_return)
-    #return test_return
-    sq = '''SELECT * FROM contacts'''
-    m_contacts = cursor.execute(sq).fetchall()
-    print(m_contacts)
-    return m_contacts
     
 class MainWindow:
     def __init__(self):
-        
+        """
+        Create and connect to the sql database, must be global
+        """
+        self.conn = sqlite3.connect(':memory:')
+        self.cursor = self.conn.cursor()
+        cq = '''CREATE TABLE contacts(
+                name TEXT, number TEXT, address TEXT
+                )'''
+        self.cursor.execute(cq)
         self.root= tk.Tk()
         self.canvas1 = tk.Canvas(self.root, width = 400, height = 100,  relief = 'raised')
         self.canvas1.pack()
@@ -106,6 +86,35 @@ class MainWindow:
 
         self.root.mainloop()
     
+    def save_contact(self,person):
+        """this function stores a new contact person in a database
+        Parameter: person: a tuple contains name,number,address
+        """
+        print('Current contact')
+        contact=self.get_contacts()
+        if person in contact:
+            print('Already in the list')
+            return
+        imq = '''INSERT INTO contacts VALUES(?,?,?)'''
+        self.cursor.execute(imq,person)
+        print('Contact saved')
+        pass
+
+    def get_contacts(self):
+        """this function retrieves the contacts from the database 
+        and returns them as a list of tuples"""
+        sq = '''SELECT * FROM contacts'''
+        m_contacts = self.cursor.execute(sq).fetchall()
+        return m_contacts
+    
+    def delete_contact(self,m_name='',m_number=''):
+        """Delete contact with same name and number"""
+        dq=f'''DELETE FROM contacts
+            WHERE name = '{m_name}' AND number = '{m_number}' '''
+        self.cursor.execute(dq)
+        self.display_contacts()
+    
+   
     def save_response(self,name, number, address):
         """this function takes the entered name, number, and address,
         stores it in a person class, informs the user that it has been saved,
@@ -116,11 +125,11 @@ class MainWindow:
         label5.config(font=('helvetica', 10))
         self.canvas1.create_window(200, 100, window=label5)
         label5.pack()
-        save_contact(newPerson)
+        self.save_contact(newPerson)
         self.display_contacts()
         
     def display_contacts(self):
-        contacts = get_contacts()
+        contacts = self.get_contacts()
         for j in self.contact_button_list:
             j.destroy()
         for i in range(len(contacts)):
@@ -130,21 +139,16 @@ class MainWindow:
             self.contact_button_list.append(button_test)
             b[i] = button_test
             b[i].pack()
-            
+    
+    
     def new_window(self, name, number, address):
         wind = ContactWindow(name, number, address)
             
 
-    def delete_contact(self, m_name,m_number):
-        """Delete contact with same name and number"""
-        dq=f'''DELETE FROM contacts
-            WHERE name = '{m_name}' AND number = '{m_number}' '''
-        cursor.execute(dq)
-        self.display_contacts()
 
 def main():
-    MainWindow()
-
+    m_window = MainWindow()
+    
 if __name__ == "__main__":
     main()
         
