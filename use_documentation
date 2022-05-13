@@ -1,6 +1,7 @@
 This project saves and displays contacts entered by the user through a graphic user interface.
 It is our hope that this project can demonstrate the uses of GUI and SQL, as well as serving as a contact management system.
 This project takes no command line arguments. 
+The main file is the one with the name "Final_Project_1.py"
 To begin running it, simply navigate to its location in your directory, type python3 and the file name, and press enter.
 Alternatively, use the run file button available in many text editors. 
 Once the file has been launched, all interaction with the user will take place through the tkinter GUI window. 
