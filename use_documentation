@@ -1,0 +1,22 @@
+This project saves and displays contacts entered by the user through a graphic user interface.
+It is our hope that this project can demonstrate the uses of GUI and SQL, as well as serving as a contact management system.
+This project takes no command line arguments. 
+To begin running it, simply navigate to its location in your directory, type python3 and the file name, and press enter.
+Alternatively, use the run file button available in many text editors. 
+Once the file has been launched, all interaction with the user will take place through the tkinter GUI window. 
+The user should see a large label saying "Contacts," three text entry boxes labeled name, number, and address, and two buttons, labeled save contact and delete contact.
+The user should enter contact information into the boxes, then press the save contact button.
+A message should appear below the two main buttons saying "Contact has been saved."
+A button with the name of the entered contact on it should then appear below the saved message.
+Upon being pressed, this button should display the contact information associated with the name.
+Pressing the save contact button with subsequent entries should cause their own buttons to appear below the created contact buttons.
+The "contact has been saved" message should also continue to appear.
+The "delete contact" button will remove the contact matching the name in the text box from the database and the button list.
+Interpretation of the program's output is self-explanatory. 
+The results of each contact button should match user-entered values, and contain all non-deleted user-entered values.
+https://realpython.com/python-gui-tkinter/
+This resource was very helpful in getting the tkinter code working.
+https://realpython.com/python-sql-libraries/
+This resource assisted with the creation of the code's sql database.
+https://stackoverflow.com/questions/27198287/tkinter-create-multiple-buttons-with-different-command-function
+And this stackoverflow interaction helped solve a late-binding bug in the display_contacts button creation.
