@@ -2,7 +2,7 @@
 import tkinter as tk
 import sqlite3
 """
-Create and connect to the sql database
+Create and connect to the sql database, must be global
 """
 conn = sqlite3.connect(':memory:')
 cursor = conn.cursor()
@@ -49,15 +49,6 @@ def get_contacts():
     m_contacts = cursor.execute(sq).fetchall()
     print(m_contacts)
     return m_contacts
-<<<<<<< HEAD
-
-def delete_contact(m_name,m_number):
-    """Delete contact with same name and number"""
-    dq=f'''DELETE FROM contacts
-            WHERE name = '{m_name}' AND number = '{m_number}' '''
-    cursor.execute(dq)
-=======
->>>>>>> 0267d5bd1ed1f975f2ee455743f4622f82b3a41f
     
 class MainWindow:
     def __init__(self):
@@ -144,11 +135,10 @@ class MainWindow:
         wind = ContactWindow(name, number, address)
             
 
-    def delete_contact(self, name,number):
+    def delete_contact(self, m_name,m_number):
         """Delete contact with same name and number"""
-        dq='''DELETE
-            FROM contacts
-            WHERE name=name AND number=number'''
+        dq=f'''DELETE FROM contacts
+            WHERE name = '{m_name}' AND number = '{m_number}' '''
         cursor.execute(dq)
         self.display_contacts()
 
