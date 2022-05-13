@@ -1,0 +1,33 @@
+As this code runs almost entirely in a tkinter GUI, unit tests do not have much of a point.
+Instead, we will describe here what output a user should see in this GUI. 
+The basics of this program's expected function are described in the use documentation, we will repeat that section here.
+
+The user should see a large label saying "Contacts," three text entry boxes labeled name, number, and address, and two buttons, labeled save contact and delete contact.
+The user should enter contact information into the boxes, then press the save contact button.
+A message should appear below the two main buttons saying "Contact has been saved."
+A button with the name of the entered contact on it should then appear below the saved message.
+Upon being pressed, this button should display the contact information associated with the name.
+Pressing the save contact button with subsequent entries should cause their own buttons to appear below the created contact buttons.
+The "contact has been saved" message should also continue to appear.
+The "delete contact" button will remove the contact matching the name in the text box from the database and the button list.
+
+To elaborate upon this, we will provide an example test case.
+First, run the code in the command line to open the tkinter window.
+Enter "Logan" in the "name" entry box, "123" in the "number" box, and "456 Oak Lane" in the "address" box, and press "save contact."
+A message should appear below the two main buttons saying "Contact has been saved."
+A button which says "Logan" on it should then appear below the saved message.
+Clicking this button should cause a separate window to appear with this text in it:
+Name: Logan
+Number: 123
+Address: 456 Oak Lane
+Navigate back to the main window, clear the text boxes, and make a new entry.
+Enter "Minghan" in the "name" entry box, "123456" in the "number" box, and "456789 Maple Lane" in the "address" box, and press "save contact."
+A second "Contact has been saved" message should appear right under the first.
+A second button which says "Minghan" should appear below the button saying "Logan."
+Pressing that button should display the information entered with Minghan in the same manner it did earlier.
+For an extra test, press the "Logan" button and confirm that it still contains Logan's information in the new window.
+In earlier versions, a late-binding issue caused all buttons' window to contain the information of the most recently entered contact.
+That issue has been fixed, but still should be tested.
+To test the delete contact button, re-enter the information for Logan in the text boxes and press "delete contact."
+The button for Logan should dissapear, and the button for Minghan should still display the same information.
+If this testing procedure is followed, it should demonstrate the functioning of every part of this code. 
